@@ -1,0 +1,24 @@
+# depslib dependency file v1.0
+1573939051 source:c:\users\souar\desktop\tetrisattack\main.c
+	<windows.h>
+	<gl/gl.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"SOIL.h"
+	"tetris.h"
+
+1215461608 c:\users\souar\desktop\tetrisattack\soil.h
+
+1573939048 c:\users\souar\desktop\tetrisattack\tetris.h
+
+1573940471 source:c:\users\souar\desktop\tetrisattack\tetris.c
+	<windows.h>
+	<gl/gl.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<math.h>
+	"SOIL.h"
+	"tetris.h"
+
