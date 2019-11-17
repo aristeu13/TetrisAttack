@@ -16,3 +16,5 @@ Pecas init_pecas();
 void movimentoPecas();
 void desenhaPecas(Pecas pecas, float vel);
 void trocar(Pecas pecas, Selector selector);
+void gravidade(Pecas pecas);
+void verifica(Pecas pecas);

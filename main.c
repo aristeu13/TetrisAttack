@@ -98,6 +98,8 @@ int WINAPI WinMain(HINSTANCE hInstance,
             if(tela){
                 trocar(pecas,selector);
                 desenhaPecas(pecas, vel);
+                gravidade(pecas);
+                verifica(pecas);
                 movimentaSelector(selector, vel);
                 desenhaSelector(selector);
             }

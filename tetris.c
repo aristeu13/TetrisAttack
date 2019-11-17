@@ -39,7 +39,17 @@ Pecas init_pecas(){
         for(i=0;i<10;i++){
             for(j=0;j<6;j++){
                 if(i > 6) N->tipo[i][j] = -1;
-                else N->tipo[i][j] = (rand() % 5) - 1;
+                else N->tipo[i][j] = (rand() % 4);
+                if(j > 1 && N->tipo[i][j] == N->tipo[i][j-1] && N->tipo[i][j] == N->tipo[i][j-2] && N->tipo[i][j] != -1) {
+                    while (1 == 1){
+                        int randon = (rand() % 4);
+                        if( randon != N->tipo[i][j]){
+                            N->tipo[i][j] = randon;
+                            break;
+                        }
+                    }
+                }
+
             }
         }
         N->vel = 0;
@@ -129,6 +139,81 @@ void trocar(Pecas pecas, Selector selector){
         pecas->tipo[(int)roundf(posY)][(int)roundf(posX) + 1] = aux;
  
         selectd = 0;
+    }
+}
+
+void gravidade(Pecas pecas){
+    int l,t;
+    for(l=0;l<9;l++){
+        for(t=0;t<6;t++){
+            if(pecas->tipo[l][t] == -1){
+                pecas->tipo[l][t] = pecas->tipo[l+1][t];
+                pecas->tipo[l+1][t] = -1;
+            }
+        }
+    }
+}
+
+void verifica(Pecas pecas){
+    int l,t;
+    for(l=1;l<10;l++){
+        for(t=0;t<4;t++){
+            int comp1 = pecas->tipo[l][t] == pecas->tipo[l][t+1];
+            int comp2 = pecas->tipo[l][t] == pecas->tipo[l][t+2];
+            int comp3 = pecas->tipo[l][t] == pecas->tipo[l][t+3];
+            int comp4 = pecas->tipo[l][t] == pecas->tipo[l][t+4];
+            int comp5 = pecas->tipo[l][t] == pecas->tipo[l][t+5];
+
+            int dif0 = pecas->tipo[l-1][t+0] != -1;
+            int dif1 = pecas->tipo[l-1][t+1] != -1;
+            int dif2 = pecas->tipo[l-1][t+2] != -1;
+            int dif3 = pecas->tipo[l-1][t+3] != -1;
+            int dif4 = pecas->tipo[l-1][t+4] != -1;
+            int dif5 = pecas->tipo[l-1][t+5] != -1;
+
+            int difSelf = pecas->tipo[l][t] != -1;
+
+            if( t < 1 && comp1 && comp2 && comp3 && comp4 && comp5 &&
+                dif0 && dif1 && dif2 && dif3 && dif4 && comp5 && difSelf){
+                    
+                pecas->tipo[l][t] = -1;
+                pecas->tipo[l][t+1] = -1;
+                pecas->tipo[l][t+2] = -1;
+                pecas->tipo[l][t+3] = -1;
+                pecas->tipo[l][t+4] = -1;
+                printf("\n 4 pts");
+            }else if( t < 2 && comp1 && comp2 && comp3 && comp4 &&
+                dif0 && dif1 && dif2 && dif3 && dif4 && difSelf){
+                    
+                pecas->tipo[l][t] = -1;
+                pecas->tipo[l][t+1] = -1;
+                pecas->tipo[l][t+2] = -1;
+                pecas->tipo[l][t+3] = -1;
+                pecas->tipo[l][t+4] = -1;
+                printf("\n 4 pts");
+            }else if( t < 3 && comp1 && comp2 && comp3 &&
+                dif0 && dif1 && dif2 && dif3 && difSelf){
+
+                pecas->tipo[l][t] = -1;
+                pecas->tipo[l][t+1] = -1;
+                pecas->tipo[l][t+2] = -1;
+                pecas->tipo[l][t+3] = -1;
+                printf("\n 4 pts");
+            }else if( comp1 && comp2 &&
+                dif0 && dif1 && dif2 && difSelf){
+
+                pecas->tipo[l][t] = -1;
+                pecas->tipo[l][t+1] = -1;
+                pecas->tipo[l][t+2] = -1;
+                printf("\n 3 pts");
+            }
+        }
+    }
+    l=0;
+    for(t=0;t<4;t++){
+        if(pecas->tipo[l][t] == pecas->tipo[l][t+1] && pecas->tipo[l][t] == pecas->tipo[l][t+2] && pecas->tipo[l-1][t] != -1 && pecas->tipo[l-1][t+1] != -1 && pecas->tipo[l-1][t+2] != -1){
+            pecas->tipo[l][t+1] = (rand() % 4);
+        }
     }
 }
 
